@@ -1,0 +1,29 @@
+{
+  "name": "breakjs",
+  "version": "0.1.0",
+  "description": "Responsive breakpoints in Javascript.",
+  "main": "./dist/break.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run babel && npm run browserify",
+    "babel": "babel ./src --out-dir ./dist",
+    "browserify": "browserify ./src/break.js -t babelify --outfile ./dist/break.bundle.js"
+  },
+  "keywords": [
+    "breakpoint",
+    "responsive",
+    "utility"
+  ],
+  "author": "Klaus Nygård",
+  "license": "MIT",
+  "dependencies": {
+    "matchmedia": "^0.1.2"
+  },
+  "devDependencies": {
+    "array.prototype.find": "^1.0.0",
+    "babelify": "^6.1.3"
+  }
+}

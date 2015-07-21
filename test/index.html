@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Break.js test</title>
+  <script src="../dist/break.bundle.js"></script>
+
+  <style type="text/css">
+    body {
+      font-family: 'Helvetica', sans-serif;
+    }
+
+    table tr td:first-child {
+      font-weight: bold;
+    }
+
+    table td {
+      padding: 3px 5px;
+    }
+  </style>
+</head>
+<body>
+  <table id="testTable"></table>
+
+  <script>
+    var testTable = document.getElementById('testTable');
+
+    var breakjs = Breakjs({
+      mobile: 0,
+      phablet: 768,
+      tablet: 992,
+      desktop: 1200
+    });
+
+    function renderDataRow(table, index, key, val) {
+      var row = table.insertRow(index);
+      var keyCell = row.insertCell(0);
+      var valCell = row.insertCell(1);
+      keyCell.innerHTML = key;
+      valCell.innerHTML = val;
+    }
+
+    function render() {
+      testTable.innerHTML = '';
+      var datarows = 0;
+
+      renderDataRow(testTable, datarows++, 'current',
+        breakjs.current() ? breakjs.current().name : 'UNDEFINED');
+
+      breakjs.breakpoints.forEach(function(bp) {
+        renderDataRow(
+          testTable,
+          datarows++,
+          'is ' + bp.name,
+          breakjs.is(bp.name)
+        );
+
+        renderDataRow(
+          testTable,
+          datarows++,
+          'at least ' + bp.name,
+          breakjs.atLeast(bp.name)
+        );
+
+        renderDataRow(
+          testTable,
+          datarows++,
+          'at most ' + bp.name,
+          breakjs.atMost(bp.name)
+        );
+      });
+    }
+
+    render();
+    breakjs.addEventListener(render);
+  </script>
+</body>
+</html>
