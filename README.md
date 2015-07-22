@@ -2,6 +2,7 @@
 
 > Responsive breakpoints for Javascript
 
+
 ## Install
 
 ```shell
@@ -10,11 +11,14 @@ npm install breakjs --save
 
 ## Usage
 
-Use with node by importing
+##### Node
 ```js
 var BreakJS = require('breakjs');
 ```
-or in browser by including `break.bundle.min.js`.
+
+##### Browser
+Include `break.bundle.min.js` and use `window.BreakJS`.
+
 
 ## How does it work?
 
@@ -36,7 +40,8 @@ var layout = BreakJS({
 
 Under the hood, BreakJS constructs media queries according to the given
 breakpoints. Window width from zero to 767px equates to mobile layout,
-768px to 991px equates phablet layout, and so on.
+768px to 991px equates phablet layout, and so on. The last given breakpoint
+will have an upper limit of 9999 pixels.
 
 Now you can use the BreakJS methods to examine the layout:
 ```js
