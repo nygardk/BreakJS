@@ -19,7 +19,7 @@ __1. Include BreakJS__
 
 Node:
 ```js
-var BreakJS = require('breakjs');
+var Breakjs = require('breakjs');
 ```
 Browser:
 ```html
@@ -27,17 +27,17 @@ Browser:
 ```
 __2. Construct your BreakJS layout object as follows:__
 ```js
-var layout = BreakJS({
+var layout = Breakjs({
   // choose any breakpoints you want
   mobile: 0,
-  phablet: 768,
-  tablet: 992,
+  phablet: 550,
+  tablet: 768,
   desktop: 1200
 });
 ```
 __3. Use the BreakJS methods to examine the layout:__
 ```js
-// window width: 800px
+// window width: 600px
 layout.is('mobile'); // false
 layout.is('phablet'); // true
 layout.atLeast('mobile'); // true
@@ -52,9 +52,9 @@ you a declarative way to define breakpoints and is simply an abstraction on
 top of the `matchMedia` browser API.
 
 Under the hood, BreakJS constructs media queries according to the given
-breakpoints. In the usage example above, window width from zero to 767px
-equates to mobile layout, 768px to 991px equates phablet layout, and so on.
-The last given breakpoint will have an upper limit of 9999 pixels.
+breakpoints. In the usage example above, window width from zero to 549px
+equates to mobile layout, 550px to 767px equates phablet layout, and so on.
+The highest given breakpoint will have an upper limit of 9999 pixels.
 
 Note that if your first breakpoint is not zero, the layout methods might
 not work intuitively.
