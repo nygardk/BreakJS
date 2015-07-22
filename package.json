@@ -19,6 +19,10 @@
   ],
   "author": "Klaus Nygård",
   "license": "MIT",
+  "repository" : {
+    "type": "git",
+    "url": "https://github.com/nygardk/BreakJS"
+  },
   "dependencies": {},
   "devDependencies": {
     "array.prototype.find": "^1.0.0",
