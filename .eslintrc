@@ -15,6 +15,7 @@
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
     "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
     "semi": [1, "always"],
-    "no-unused-expressions": 1
+    "no-unused-expressions": 1,
+    "no-loop-func": 0
   }
 }

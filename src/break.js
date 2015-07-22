@@ -27,14 +27,20 @@ let query = function(bp, nextBp) {
 let Breakjs = function(bpEntries) {
   let bps = [];
   for (let key in bpEntries) {
-    bps.push({name: key, value: bpEntries[key]});
+    let entry = {name: key, value: bpEntries[key]};
+
+    if (bps.find(bp => bp.value === entry.value)) {
+      throw new Error('Breakpoint values must be unique.');
+    }
+
+    bps.push(entry);
   }
 
   let breakpoints = bps
     .sort((a, b) => { return a.value > b.value; })
     .map((bp, index) => {
       if (typeof bp.name !== 'string') {
-        throw new Error('Invalid breakpoint name -- should be string.');
+        throw new Error('Invalid breakpoint name -- should be a string.');
       }
 
       if (typeof bp.value !== 'number' || bp.value < 0 || bp.value >= 9999) {
@@ -62,9 +68,7 @@ let Breakjs = function(bpEntries) {
     });
 
   function getBreakpoint(breakpointName) {
-    let find = breakpoints.find(
-      bp => bp.name.toLowerCase() === breakpointName.toLowerCase()
-    );
+    let find = breakpoints.find(bp => bp.name === breakpointName);
 
     if (!find) {
       throw new Error('invalid breakpoint name');

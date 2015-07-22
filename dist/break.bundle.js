@@ -64,15 +64,28 @@ var query = function query(bp, nextBp) {
 
 var Breakjs = function Breakjs(bpEntries) {
   var bps = [];
+
+  var _loop = function (key) {
+    var entry = { name: key, value: bpEntries[key] };
+
+    if (bps.find(function (bp) {
+      return bp.value === entry.value;
+    })) {
+      throw new Error('Breakpoint values must be unique.');
+    }
+
+    bps.push(entry);
+  };
+
   for (var key in bpEntries) {
-    bps.push({ name: key, value: bpEntries[key] });
+    _loop(key);
   }
 
   var breakpoints = bps.sort(function (a, b) {
     return a.value > b.value;
   }).map(function (bp, index) {
     if (typeof bp.name !== 'string') {
-      throw new Error('Invalid breakpoint name -- should be string.');
+      throw new Error('Invalid breakpoint name -- should be a string.');
     }
 
     if (typeof bp.value !== 'number' || bp.value < 0 || bp.value >= 9999) {
@@ -101,7 +114,7 @@ var Breakjs = function Breakjs(bpEntries) {
 
   function getBreakpoint(breakpointName) {
     var find = breakpoints.find(function (bp) {
-      return bp.name.toLowerCase() === breakpointName.toLowerCase();
+      return bp.name === breakpointName;
     });
 
     if (!find) {
