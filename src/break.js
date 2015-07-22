@@ -64,7 +64,7 @@ let Breakjs = function(bpEntries) {
   }
 
   return {
-    breakpoints: bps,
+    breakpoints: bpEntries,
 
     /**
      * Check if the current window size is the given size
