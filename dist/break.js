@@ -18,7 +18,7 @@ var mediaQueries = {
   }
 };
 
-var Query = function Query(bp, nextBp) {
+var query = function query(bp, nextBp) {
   return {
     is: typeof nextBp === 'number' ? mediaQueries.between(bp, nextBp) : mediaQueries.atLeast(bp),
     atLeast: mediaQueries.atLeast(bp),
@@ -40,24 +40,24 @@ var Breakjs = function Breakjs(bpEntries) {
     }
 
     if (typeof bp.value !== 'number' || bp.value < 0 || bp.value >= 9999) {
-      throw new Error('Invalid breakpoint value for ' + $bp.name + ': ' + bp.value);
+      throw new Error('Invalid breakpoint value for ' + bp.name + ': ' + bp.value);
     }
 
     var breakpoint = { name: bp.name };
 
     // only query
     if (bps.length === 1) {
-      breakpoint.query = Query(0, null);
+      breakpoint.query = query(0, null);
     }
 
     // last query
     else if (index === bps.length - 1) {
-        breakpoint.query = Query(bp.value, null);
+        breakpoint.query = query(bp.value, null);
       }
 
       // query inbetween
       else {
-          breakpoint.query = Query(bp.value, bps[index + 1].value);
+          breakpoint.query = query(bp.value, bps[index + 1].value);
         }
 
     return breakpoint;

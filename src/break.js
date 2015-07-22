@@ -14,7 +14,7 @@ let mediaQueries = {
   }
 };
 
-let Query = function(bp, nextBp) {
+let query = function(bp, nextBp) {
   return {
     is: typeof nextBp === 'number'
           ? mediaQueries.between(bp, nextBp)
@@ -37,26 +37,25 @@ let Breakjs = function(bpEntries) {
         throw new Error('Invalid breakpoint name -- should be string.');
       }
 
-      if (typeof bp.value !== 'number' || bp.value < 0 || bp.value >= 9999) {
-        throw new Error(
-          `Invalid breakpoint value for ${$bp.name}: ${bp.value}`);
+      if (typeof bp.value !== 'number' || bp.value < 0 || bp.value >= 9999) {
+        throw new Error(`Invalid breakpoint value for ${bp.name}: ${bp.value}`);
       }
 
       let breakpoint = {name: bp.name};
 
       // only query
       if (bps.length === 1) {
-        breakpoint.query = Query(0, null);
+        breakpoint.query = query(0, null);
       }
 
       // last query
       else if (index === bps.length - 1) {
-        breakpoint.query = Query(bp.value, null);
+        breakpoint.query = query(bp.value, null);
       }
 
       // query inbetween
       else {
-        breakpoint.query = Query(bp.value, bps[index + 1].value);
+        breakpoint.query = query(bp.value, bps[index + 1].value);
       }
 
       return breakpoint;
