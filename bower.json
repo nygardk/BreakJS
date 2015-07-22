@@ -1,0 +1,22 @@
+{
+  "name": "breakjs",
+  "version": "0.1.0",
+  "homepage": "https://github.com/nygardk/BreakJS",
+  "authors": [
+    "Klaus Nygård <klaus.nygard@gmail.com>"
+  ],
+  "description": "Responsive breakpoints in Javascript.",
+  "main": "./dist/break.bundle.min.js",
+  "keywords": [
+    "breakpoint",
+    "responsive",
+    "media",
+    "query"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "license": "MIT"
+}
