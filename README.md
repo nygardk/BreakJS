@@ -8,26 +8,24 @@
 ```shell
 npm install breakjs --save
 ```
+or
+```shell
+bower install breakjs -S
+```
 
 ## Usage
 
-##### Node
+__1. Include BreakJS__
+
+Node:
 ```js
 var BreakJS = require('breakjs');
 ```
-
-##### Browser
-Include `break.bundle.min.js` and use `window.BreakJS`.
-
-
-## How does it work?
-
-BreakJS makes it a breeze to control your layout with Javascript. It provides
-you a declarative way to define breakpoints and is simply an abstraction on
-top of the `matchMedia` browser API. Take a look at the
-[examples](#Examples) to get going.
-
-First, construct your BreakJS layout object as follows:
+Browser:
+```html
+<script src="path/to/break.bundle.min.js"></script>
+```
+__2. Construct your BreakJS layout object as follows:__
 ```js
 var layout = BreakJS({
   // choose any breakpoints you want
@@ -37,13 +35,7 @@ var layout = BreakJS({
   desktop: 1200
 });
 ```
-
-Under the hood, BreakJS constructs media queries according to the given
-breakpoints. Window width from zero to 767px equates to mobile layout,
-768px to 991px equates phablet layout, and so on. The last given breakpoint
-will have an upper limit of 9999 pixels.
-
-Now you can use the BreakJS methods to examine the layout:
+__3. Use the BreakJS methods to examine the layout:__
 ```js
 // window width: 800px
 layout.is('mobile'); // false
@@ -52,6 +44,17 @@ layout.atLeast('mobile'); // true
 layout.atMost('phablet'); // true
 layout.atLeast('tablet'); // false
 ```
+
+## How does it work?
+
+BreakJS makes it a breeze to control your layout with Javascript. It provides
+you a declarative way to define breakpoints and is simply an abstraction on
+top of the `matchMedia` browser API.
+
+Under the hood, BreakJS constructs media queries according to the given
+breakpoints. In the usage example above, window width from zero to 767px
+equates to mobile layout, 768px to 991px equates phablet layout, and so on.
+The last given breakpoint will have an upper limit of 9999 pixels.
 
 Note that if your first breakpoint is not zero, the layout methods might
 not work intuitively.
