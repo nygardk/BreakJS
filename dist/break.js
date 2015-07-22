@@ -20,7 +20,7 @@ var mediaQueries = {
 
 var Query = function Query(bp, nextBp) {
   return {
-    is: bp && nextBp ? mediaQueries.between(bp, nextBp) : mediaQueries.atLeast(bp),
+    is: typeof nextBp === 'number' ? mediaQueries.between(bp, nextBp) : mediaQueries.atLeast(bp),
     atLeast: mediaQueries.atLeast(bp),
     atMost: mediaQueries.atMost(nextBp || 9999)
   };
@@ -32,7 +32,17 @@ var Breakjs = function Breakjs(bpEntries) {
     bps.push({ name: key, value: bpEntries[key] });
   }
 
-  var breakpoints = bps.map(function (bp, index) {
+  var breakpoints = bps.sort(function (a, b) {
+    return a.value > b.value;
+  }).map(function (bp, index) {
+    if (typeof bp.name !== 'string') {
+      throw new Error('Invalid breakpoint name -- should be string.');
+    }
+
+    if (typeof bp.value !== 'number' || bp.value < 0 || bp.value >= 9999) {
+      throw new Error('Invalid breakpoint value for ' + $bp.name + ': ' + bp.value);
+    }
+
     var breakpoint = { name: bp.name };
 
     // only query
@@ -42,13 +52,13 @@ var Breakjs = function Breakjs(bpEntries) {
 
     // last query
     else if (index === bps.length - 1) {
-      breakpoint.query = Query(bp.value, null);
-    }
+        breakpoint.query = Query(bp.value, null);
+      }
 
-    // query inbetween
-    else {
-      breakpoint.query = Query(bp.value, bps[index + 1].value);
-    }
+      // query inbetween
+      else {
+          breakpoint.query = Query(bp.value, bps[index + 1].value);
+        }
 
     return breakpoint;
   });

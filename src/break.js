@@ -16,7 +16,7 @@ let mediaQueries = {
 
 let Query = function(bp, nextBp) {
   return {
-    is: bp && nextBp
+    is: typeof nextBp === 'number'
           ? mediaQueries.between(bp, nextBp)
           : mediaQueries.atLeast(bp),
     atLeast: mediaQueries.atLeast(bp),
@@ -30,26 +30,37 @@ let Breakjs = function(bpEntries) {
     bps.push({name: key, value: bpEntries[key]});
   }
 
-  let breakpoints = bps.map((bp, index) => {
-    let breakpoint = {name: bp.name};
+  let breakpoints = bps
+    .sort((a, b) => { return a.value > b.value; })
+    .map((bp, index) => {
+      if (typeof bp.name !== 'string') {
+        throw new Error('Invalid breakpoint name -- should be string.');
+      }
 
-    // only query
-    if (bps.length === 1) {
-      breakpoint.query = Query(0, null);
-    }
+      if (typeof bp.value !== 'number' || bp.value < 0 || bp.value >= 9999) {
+        throw new Error(
+          `Invalid breakpoint value for ${$bp.name}: ${bp.value}`);
+      }
 
-    // last query
-    else if (index === bps.length - 1) {
-      breakpoint.query = Query(bp.value, null);
-    }
+      let breakpoint = {name: bp.name};
 
-    // query inbetween
-    else {
-      breakpoint.query = Query(bp.value, bps[index + 1].value);
-    }
+      // only query
+      if (bps.length === 1) {
+        breakpoint.query = Query(0, null);
+      }
 
-    return breakpoint;
-  });
+      // last query
+      else if (index === bps.length - 1) {
+        breakpoint.query = Query(bp.value, null);
+      }
+
+      // query inbetween
+      else {
+        breakpoint.query = Query(bp.value, bps[index + 1].value);
+      }
+
+      return breakpoint;
+    });
 
   function getBreakpoint(breakpointName) {
     let find = breakpoints.find(
@@ -64,7 +75,7 @@ let Breakjs = function(bpEntries) {
   }
 
   return {
-    breakpoints: bpEntries,
+    breakpoints: bps,
 
     /**
      * Check if the current window size is the given size
