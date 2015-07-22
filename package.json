@@ -19,9 +19,7 @@
   ],
   "author": "Klaus Nygård",
   "license": "MIT",
-  "dependencies": {
-    "matchmedia": "^0.1.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "array.prototype.find": "^1.0.0",
     "babelify": "^6.1.3"

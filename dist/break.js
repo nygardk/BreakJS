@@ -4,23 +4,17 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 require('array.prototype.find');
-
-var _matchmedia = require('matchmedia');
-
-var _matchmedia2 = _interopRequireDefault(_matchmedia);
 
 var mediaQueries = {
   between: function between(val1, val2) {
-    return (0, _matchmedia2['default'])('(min-width: ' + val1 + 'px) and\n                       (max-width: ' + (val2 - 1) + 'px)');
+    return window.matchMedia('(min-width: ' + val1 + 'px) and\n                              (max-width: ' + (val2 - 1) + 'px)');
   },
   atLeast: function atLeast(val) {
-    return (0, _matchmedia2['default'])('(min-width: ' + val + 'px)');
+    return window.matchMedia('(min-width: ' + val + 'px)');
   },
   atMost: function atMost(val) {
-    return (0, _matchmedia2['default'])('(max-width: ' + (val - 1) + 'px)');
+    return window.matchMedia('(max-width: ' + (val - 1) + 'px)');
   }
 };
 

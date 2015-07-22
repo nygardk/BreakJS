@@ -1,17 +1,16 @@
 import 'array.prototype.find';
-import matchmedia from 'matchmedia';
 
 
 let mediaQueries = {
   between(val1, val2) {
-    return matchmedia(`(min-width: ${val1}px) and
-                       (max-width: ${val2 - 1}px)`);
+    return window.matchMedia(`(min-width: ${val1}px) and
+                              (max-width: ${val2 - 1}px)`);
   },
   atLeast(val) {
-    return matchmedia(`(min-width: ${val}px)`);
+    return window.matchMedia(`(min-width: ${val}px)`);
   },
   atMost(val) {
-    return matchmedia(`(max-width: ${val - 1}px)`);
+    return window.matchMedia(`(max-width: ${val - 1}px)`);
   }
 };
 
