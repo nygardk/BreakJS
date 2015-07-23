@@ -122,7 +122,7 @@ let Breakjs = function(bpEntries) {
         let changeListener = () => {
           let current = this.current();
           if (current && current.name === bp.name) {
-            listener(current);
+            listener(current.name);
           }
         };
 
