@@ -43,8 +43,7 @@
       testTable.innerHTML = '';
       var datarows = 0;
 
-      renderDataRow(testTable, datarows++, 'current',
-        breakjs.current() ? breakjs.current().name : 'UNDEFINED');
+      renderDataRow(testTable, datarows++, 'current', breakjs.current());
 
       breakjs.breakpoints.forEach(function(bp) {
         renderDataRow(

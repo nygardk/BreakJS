@@ -114,15 +114,19 @@ let Breakjs = function(bpEntries) {
     },
 
     current() {
-      return find(breakpoints, bp => bp.query.is.matches);
+      let findObj = find(breakpoints, bp => bp.query.is.matches);
+
+      if (findObj) {
+        return findObj.name;
+      }
     },
 
     addChangeListener(listener) {
       breakpoints.forEach(bp => {
         let changeListener = () => {
-          let current = this.current();
-          if (current && current.name === bp.name) {
-            listener(current.name);
+          var current = this.current();
+          if (current === bp.name) {
+            listener(current);
           }
         };
 
