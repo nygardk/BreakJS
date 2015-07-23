@@ -139,8 +139,8 @@ var Breakjs = function Breakjs(bpEntries) {
 
       breakpoints.forEach(function (bp) {
         var changeListener = function changeListener() {
-          var current = _this.current().name;
-          if (bp.name === current) {
+          var current = _this.current();
+          if (current && current.name === bp.name) {
             listener(current);
           }
         };
