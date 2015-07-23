@@ -167,7 +167,7 @@ var Breakjs = function Breakjs(bpEntries) {
         var changeListener = function changeListener() {
           var current = _this.current();
           if (current && current.name === bp.name) {
-            listener(current);
+            listener(current.name);
           }
         };
 
