@@ -25,6 +25,10 @@ let query = function(bp, nextBp) {
 };
 
 let Breakjs = function(bpEntries) {
+  if (!bpEntries) {
+    throw new Error('No breakpoints were defined!');
+  }
+
   let bps = [];
   for (let key in bpEntries) {
     let entry = {name: key, value: bpEntries[key]};
@@ -77,6 +81,8 @@ let Breakjs = function(bpEntries) {
     return findObj;
   }
 
+  let changeListeners = [];
+
   return {
     breakpoints: bps,
 
@@ -112,14 +118,31 @@ let Breakjs = function(bpEntries) {
     },
 
     addChangeListener(listener) {
-      breakpoints.forEach((bp) => {
-        bp.query.is.addListener(() => { listener(bp.name); });
+      breakpoints.forEach(bp => {
+        let changeListener = () => {
+          let current = this.current().name;
+          if (bp.name === current) {
+            listener(current);
+          }
+        };
+
+        changeListeners.push({
+          original: listener,
+          created: changeListener
+        });
+
+        bp.query.is.addListener(changeListener);
       });
     },
 
     removeChangeListener(listener) {
-      breakpoints.forEach((bp) => {
-        bp.query.is.removeListener(() => { listener(bp.name); });
+      breakpoints.forEach(bp => {
+        let findObj = find(changeListeners, cl => cl.original === listener);
+
+        if (findObj) {
+          bp.query.is.removeListener(findObj.created);
+          changeListeners.splice(changeListeners.indexOf(findObj), 1);
+        }
       });
     }
   };
