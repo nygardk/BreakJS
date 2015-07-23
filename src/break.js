@@ -1,4 +1,4 @@
-import 'array.prototype.find';
+import find from 'array-find';
 
 
 let mediaQueries = {
@@ -29,7 +29,7 @@ let Breakjs = function(bpEntries) {
   for (let key in bpEntries) {
     let entry = {name: key, value: bpEntries[key]};
 
-    if (bps.find(bp => bp.value === entry.value)) {
+    if (find(bps, bp => bp.value === entry.value)) {
       throw new Error('Breakpoint values must be unique.');
     }
 
@@ -68,13 +68,13 @@ let Breakjs = function(bpEntries) {
     });
 
   function getBreakpoint(breakpointName) {
-    let find = breakpoints.find(bp => bp.name === breakpointName);
+    let findObj = find(breakpoints, bp => bp.name === breakpointName);
 
-    if (!find) {
+    if (!findObj) {
       throw new Error('invalid breakpoint name');
     }
 
-    return find;
+    return findObj;
   }
 
   return {
@@ -108,7 +108,7 @@ let Breakjs = function(bpEntries) {
     },
 
     current() {
-      return breakpoints.find(bp => bp.query.is.matches);
+      return find(breakpoints, bp => bp.query.is.matches);
     },
 
     addChangeListener(listener) {
