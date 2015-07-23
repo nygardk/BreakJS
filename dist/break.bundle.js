@@ -1,37 +1,27 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-// Array.prototype.find - MIT License (c) 2013 Paul Miller <http://paulmillr.com>
-// For all details and docs: https://github.com/paulmillr/array.prototype.find
-// Fixes and tests supplied by Duncan Hall <http://duncanhall.net> 
-(function(globals){
-  if (Array.prototype.find) return;
+'use strict';
 
-  var find = function(predicate) {
-    var list = Object(this);
-    var length = list.length < 0 ? 0 : list.length >>> 0; // ES.ToUint32;
-    if (length === 0) return undefined;
-    if (typeof predicate !== 'function' || Object.prototype.toString.call(predicate) !== '[object Function]') {
-      throw new TypeError('Array#find: predicate must be a function');
-    }
-    var thisArg = arguments[1];
-    for (var i = 0, value; i < length; i++) {
-      value = list[i];
-      if (predicate.call(thisArg, value, i, list)) return value;
-    }
-    return undefined;
-  };
-
-  if (Object.defineProperty) {
-    try {
-      Object.defineProperty(Array.prototype, 'find', {
-        value: find, configurable: true, enumerable: false, writable: true
-      });
-    } catch(e) {}
+function find(array, predicate, context) {
+  if (typeof Array.prototype.find === 'function') {
+    return array.find(predicate, context);
   }
 
-  if (!Array.prototype.find) {
-    Array.prototype.find = find;
+  context = context || this;
+  var length = array.length;
+  var i;
+
+  if (typeof predicate !== 'function') {
+    throw new TypeError(predicate + ' is not a function');
   }
-})(this);
+
+  for (i = 0; i < length; i++) {
+    if (predicate.call(context, array[i], i, array)) {
+      return array[i];
+    }
+  }
+}
+
+module.exports = find;
 
 },{}],2:[function(require,module,exports){
 'use strict';
@@ -40,7 +30,11 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-require('array.prototype.find');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _arrayFind = require('array-find');
+
+var _arrayFind2 = _interopRequireDefault(_arrayFind);
 
 var mediaQueries = {
   between: function between(val1, val2) {
@@ -68,7 +62,7 @@ var Breakjs = function Breakjs(bpEntries) {
   var _loop = function (key) {
     var entry = { name: key, value: bpEntries[key] };
 
-    if (bps.find(function (bp) {
+    if ((0, _arrayFind2['default'])(bps, function (bp) {
       return bp.value === entry.value;
     })) {
       throw new Error('Breakpoint values must be unique.');
@@ -113,15 +107,15 @@ var Breakjs = function Breakjs(bpEntries) {
   });
 
   function getBreakpoint(breakpointName) {
-    var find = breakpoints.find(function (bp) {
+    var findObj = (0, _arrayFind2['default'])(breakpoints, function (bp) {
       return bp.name === breakpointName;
     });
 
-    if (!find) {
+    if (!findObj) {
       throw new Error('invalid breakpoint name');
     }
 
-    return find;
+    return findObj;
   }
 
   return {
@@ -155,20 +149,22 @@ var Breakjs = function Breakjs(bpEntries) {
     },
 
     current: function current() {
-      return breakpoints.find(function (bp) {
+      return (0, _arrayFind2['default'])(breakpoints, function (bp) {
         return bp.query.is.matches;
       });
     },
 
-    addEventListener: function addEventListener(listener) {
+    addChangeListener: function addChangeListener(listener) {
       breakpoints.forEach(function (bp) {
         bp.query.is.addListener(function () {
           listener(bp.name);
         });
-        bp.query.atLeast.addListener(function () {
-          listener(bp.name);
-        });
-        bp.query.atMost.addListener(function () {
+      });
+    },
+
+    removeChangeListener: function removeChangeListener(listener) {
+      breakpoints.forEach(function (bp) {
+        bp.query.is.removeListener(function () {
           listener(bp.name);
         });
       });
@@ -183,4 +179,4 @@ if (typeof window !== 'undefined') {
 exports['default'] = Breakjs;
 module.exports = exports['default'];
 
-},{"array.prototype.find":1}]},{},[2]);
+},{"array-find":1}]},{},[2]);

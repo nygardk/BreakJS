@@ -4,7 +4,11 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-require('array.prototype.find');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _arrayFind = require('array-find');
+
+var _arrayFind2 = _interopRequireDefault(_arrayFind);
 
 var mediaQueries = {
   between: function between(val1, val2) {
@@ -32,7 +36,7 @@ var Breakjs = function Breakjs(bpEntries) {
   var _loop = function (key) {
     var entry = { name: key, value: bpEntries[key] };
 
-    if (bps.find(function (bp) {
+    if ((0, _arrayFind2['default'])(bps, function (bp) {
       return bp.value === entry.value;
     })) {
       throw new Error('Breakpoint values must be unique.');
@@ -77,15 +81,15 @@ var Breakjs = function Breakjs(bpEntries) {
   });
 
   function getBreakpoint(breakpointName) {
-    var find = breakpoints.find(function (bp) {
+    var findObj = (0, _arrayFind2['default'])(breakpoints, function (bp) {
       return bp.name === breakpointName;
     });
 
-    if (!find) {
+    if (!findObj) {
       throw new Error('invalid breakpoint name');
     }
 
-    return find;
+    return findObj;
   }
 
   return {
@@ -119,20 +123,22 @@ var Breakjs = function Breakjs(bpEntries) {
     },
 
     current: function current() {
-      return breakpoints.find(function (bp) {
+      return (0, _arrayFind2['default'])(breakpoints, function (bp) {
         return bp.query.is.matches;
       });
     },
 
-    addEventListener: function addEventListener(listener) {
+    addChangeListener: function addChangeListener(listener) {
       breakpoints.forEach(function (bp) {
         bp.query.is.addListener(function () {
           listener(bp.name);
         });
-        bp.query.atLeast.addListener(function () {
-          listener(bp.name);
-        });
-        bp.query.atMost.addListener(function () {
+      });
+    },
+
+    removeChangeListener: function removeChangeListener(listener) {
+      breakpoints.forEach(function (bp) {
+        bp.query.is.removeListener(function () {
           listener(bp.name);
         });
       });
