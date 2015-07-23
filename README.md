@@ -113,7 +113,7 @@ Removes the change listener.
 ## Example with React
 
 Intended use with React:
-```
+```js
 var layout = Breakjs({
   mobile: 0,
   phablet: 550,
