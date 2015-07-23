@@ -3,9 +3,9 @@
   "version": "0.1.1",
   "homepage": "https://github.com/nygardk/BreakJS",
   "authors": [
-    "Klaus Nygård <klaus.nygard@gmail.com>"
+    "Klaus Nygård <klaus.nygard@gmail.com>"
   ],
-  "description": "Responsive breakpoints in Javascript.",
+  "description": "Responsive breakpoints in Javascript made simple.",
   "main": "./dist/break.bundle.min.js",
   "keywords": [
     "breakpoint",

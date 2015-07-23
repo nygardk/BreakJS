@@ -1,7 +1,7 @@
 {
   "name": "breakjs",
   "version": "0.1.1",
-  "description": "Responsive breakpoints in Javascript.",
+  "description": "Responsive breakpoints in Javascript made simple.",
   "main": "./dist/break.js",
   "directories": {
     "test": "test"
@@ -16,7 +16,8 @@
   "keywords": [
     "breakpoint",
     "responsive",
-    "utility"
+    "utility",
+    "React"
   ],
   "author": "Klaus Nygård",
   "license": "MIT",
