@@ -155,9 +155,13 @@ var Breakjs = function Breakjs(bpEntries) {
     },
 
     current: function current() {
-      return (0, _arrayFind2['default'])(breakpoints, function (bp) {
+      var findObj = (0, _arrayFind2['default'])(breakpoints, function (bp) {
         return bp.query.is.matches;
       });
+
+      if (findObj) {
+        return findObj.name;
+      }
     },
 
     addChangeListener: function addChangeListener(listener) {
@@ -166,8 +170,8 @@ var Breakjs = function Breakjs(bpEntries) {
       breakpoints.forEach(function (bp) {
         var changeListener = function changeListener() {
           var current = _this.current();
-          if (current && current.name === bp.name) {
-            listener(current.name);
+          if (current === bp.name) {
+            listener(current);
           }
         };
 
