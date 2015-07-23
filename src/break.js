@@ -111,11 +111,19 @@ let Breakjs = function(bpEntries) {
       return breakpoints.find(bp => bp.query.is.matches);
     },
 
-    addEventListener(listener) {
+    addChangeListener(listener) {
       breakpoints.forEach((bp) => {
         bp.query.is.addListener(() => { listener(bp.name); });
         bp.query.atLeast.addListener(() => { listener(bp.name); });
         bp.query.atMost.addListener(() => { listener(bp.name); });
+      });
+    },
+
+    removeChangeListener(listener) {
+      breakpoints.forEach((bp) => {
+        bp.query.is.removeListener(() => { listener(bp.name); });
+        bp.query.atLeast.removeListener(() => { listener(bp.name); });
+        bp.query.atMost.removeListener(() => { listener(bp.name); });
       });
     }
   };
