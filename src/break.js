@@ -120,8 +120,8 @@ let Breakjs = function(bpEntries) {
     addChangeListener(listener) {
       breakpoints.forEach(bp => {
         let changeListener = () => {
-          let current = this.current().name;
-          if (bp.name === current) {
+          let current = this.current();
+          if (current && current.name === bp.name) {
             listener(current);
           }
         };
