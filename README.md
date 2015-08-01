@@ -40,7 +40,7 @@ var layout = Breakjs({
   mobile: 0,
   phablet: 550,
   tablet: 768,
-  desktop: 1200
+  desktop: 992
 });
 ```
 __3. Use the BreakJS methods to examine the layout and add event listeners:__
