@@ -1,6 +1,6 @@
 {
   "name": "breakjs",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Responsive breakpoints in Javascript made simple.",
   "main": "./dist/break.js",
   "directories": {
