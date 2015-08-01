@@ -11,7 +11,8 @@
     "babel": "babel ./src --out-dir ./dist",
     "browserify": "browserify ./src/break.js -t babelify --outfile ./dist/break.bundle.js",
     "minify": "uglifyjs ./dist/break.bundle.js --compress --mangle --output ./dist/break.bundle.min.js",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "test": "karma start --single-run"
   },
   "keywords": [
     "breakpoint",
@@ -31,7 +32,14 @@
   "devDependencies": {
     "babel": "^5.8.3",
     "babelify": "^6.1.3",
+    "browserify": "^11.0.1",
     "eslint": "^0.24.1",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.3",
+    "karma-browserify": "^4.2.1",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.6",
+    "karma-spec-reporter": "0.0.20",
     "uglify-js": "^2.4.23"
   }
 }
