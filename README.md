@@ -66,7 +66,7 @@ top of the `matchMedia` browser API.
 Under the hood, BreakJS constructs media queries according to the given
 breakpoints. In the usage example above, window width from zero to 549px
 equates mobile layout, 550px to 767px equates phablet layout, and so on.
-The highest given breakpoint will have an upper limit of 9999 pixels.
+The highest given breakpoint will have an upper limit of Number.MAX_VALUE.
 
 Note that if your first breakpoint is not zero, the layout methods might
 not work intuitively.

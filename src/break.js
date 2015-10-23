@@ -20,7 +20,7 @@ let query = function(bp, nextBp) {
           ? mediaQueries.between(bp, nextBp)
           : mediaQueries.atLeast(bp),
     atLeast: mediaQueries.atLeast(bp),
-    atMost: mediaQueries.atMost(nextBp || 9999)
+    atMost: mediaQueries.atMost(nextBp || Number.MAX_VALUE)
   };
 };
 
