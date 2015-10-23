@@ -6,13 +6,13 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _arrayFind = require('array-find');
+var _lodashFind = require('lodash.find');
 
-var _arrayFind2 = _interopRequireDefault(_arrayFind);
+var _lodashFind2 = _interopRequireDefault(_lodashFind);
 
 var mediaQueries = {
   between: function between(val1, val2) {
-    return window.matchMedia('(min-width: ' + val1 + 'px) and\n                              (max-width: ' + (val2 - 1) + 'px)');
+    return window.matchMedia('(min-width: ' + val1 + 'px) and ' + ('(max-width: ' + (val2 - 1) + 'px)'));
   },
   atLeast: function atLeast(val) {
     return window.matchMedia('(min-width: ' + val + 'px)');
@@ -26,7 +26,7 @@ var query = function query(bp, nextBp) {
   return {
     is: typeof nextBp === 'number' ? mediaQueries.between(bp, nextBp) : mediaQueries.atLeast(bp),
     atLeast: mediaQueries.atLeast(bp),
-    atMost: mediaQueries.atMost(nextBp || 9999)
+    atMost: mediaQueries.atMost(nextBp || Number.MAX_VALUE)
   };
 };
 
@@ -40,7 +40,7 @@ var Breakjs = function Breakjs(bpEntries) {
   var _loop = function (key) {
     var entry = { name: key, value: bpEntries[key] };
 
-    if ((0, _arrayFind2['default'])(bps, function (bp) {
+    if ((0, _lodashFind2['default'])(bps, function (bp) {
       return bp.value === entry.value;
     })) {
       throw new Error('Breakpoint values must be unique.');
@@ -85,7 +85,7 @@ var Breakjs = function Breakjs(bpEntries) {
   });
 
   function getBreakpoint(breakpointName) {
-    var findObj = (0, _arrayFind2['default'])(breakpoints, function (bp) {
+    var findObj = (0, _lodashFind2['default'])(breakpoints, function (bp) {
       return bp.name === breakpointName;
     });
 
@@ -129,7 +129,7 @@ var Breakjs = function Breakjs(bpEntries) {
     },
 
     current: function current() {
-      var findObj = (0, _arrayFind2['default'])(breakpoints, function (bp) {
+      var findObj = (0, _lodashFind2['default'])(breakpoints, function (bp) {
         return bp.query.is.matches;
       });
 
@@ -160,7 +160,7 @@ var Breakjs = function Breakjs(bpEntries) {
 
     removeChangeListener: function removeChangeListener(listener) {
       breakpoints.forEach(function (bp) {
-        var findObj = (0, _arrayFind2['default'])(changeListeners, function (cl) {
+        var findObj = (0, _lodashFind2['default'])(changeListeners, function (cl) {
           return cl.original === listener;
         });
 
