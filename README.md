@@ -11,6 +11,8 @@ elements. Eventually, it is better to control your layout purely with
 Javascript and use CSS just for styling. If you happen to use React.js or
 similar, BreakJS will work very well. [See example with React](#ReactExample).
 
+See also [react-break](https://github.com/nygardk/react-break/).
+
 ## Install
 
 ```shell
