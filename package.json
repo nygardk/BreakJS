@@ -12,7 +12,7 @@
     "browserify": "browserify ./src/break.js -t babelify --outfile ./dist/break.bundle.js",
     "minify": "uglifyjs ./dist/break.bundle.js --compress --mangle --output ./dist/break.bundle.min.js",
     "lint": "eslint ./src",
-    "test": "karma start --single-run"
+    "test": "npm run build && karma start --single-run"
   },
   "keywords": [
     "breakpoint",
