@@ -10,8 +10,11 @@
   "keywords": [
     "breakpoint",
     "responsive",
+    "layout",
     "media",
-    "query"
+    "mediaquery",
+    "query",
+    "react"
   ],
   "moduleType": [
     "amd",
