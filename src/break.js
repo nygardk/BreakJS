@@ -1,7 +1,7 @@
 import find from 'lodash.find';
 
 
-let mediaQueries = {
+const mediaQueries = {
   between(val1, val2) {
     return window.matchMedia(`(min-width: ${val1}px) and
                               (max-width: ${val2 - 1}px)`);
@@ -14,7 +14,7 @@ let mediaQueries = {
   }
 };
 
-let query = function(bp, nextBp) {
+const query = function(bp, nextBp) {
   return {
     is: typeof nextBp === 'number'
           ? mediaQueries.between(bp, nextBp)
@@ -24,7 +24,7 @@ let query = function(bp, nextBp) {
   };
 };
 
-let Breakjs = function(bpEntries) {
+const Breakjs = function(bpEntries) {
   if (!bpEntries) {
     throw new Error('No breakpoints were defined!');
   }
