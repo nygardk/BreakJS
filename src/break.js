@@ -3,8 +3,8 @@ import find from 'lodash.find';
 
 const mediaQueries = {
   between(val1, val2) {
-    return window.matchMedia(`(min-width: ${val1}px) and
-                              (max-width: ${val2 - 1}px)`);
+    return window.matchMedia(`(min-width: ${val1}px) and ` +
+                             `(max-width: ${val2 - 1}px)`);
   },
   atLeast(val) {
     return window.matchMedia(`(min-width: ${val}px)`);
