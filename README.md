@@ -125,7 +125,7 @@ var myApp = React.createClass({
   getInitialState: function() {
     return {layout: layout.current()};
   },
-  componentWillMount: function() {
+  componentDidMount: function() {
     layout.addChangeListener(this.onLayoutChange);
   },
   componentWillUnmount: function() {
