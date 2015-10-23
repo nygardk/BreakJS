@@ -19,6 +19,9 @@
     "responsive",
     "utility",
     "layout",
+    "media",
+    "mediauqery",
+    "query",
     "React"
   ],
   "author": "Klaus Nygård",
