@@ -31,7 +31,6 @@
     "url": "https://github.com/nygardk/BreakJS"
   },
   "dependencies": {
-    "array-find": "^1.0.0",
     "lodash.find": "^3.2.1"
   },
   "devDependencies": {
