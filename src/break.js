@@ -3,14 +3,14 @@ import find from 'lodash.find';
 
 const mediaQueries = {
   between(val1, val2) {
-    return window.matchMedia(`(min-width: ${val1}px) and ` +
+    return window.matchMedia(`screen and (min-width: ${val1}px) and ` +
                              `(max-width: ${val2 - 1}px)`);
   },
   atLeast(val) {
-    return window.matchMedia(`(min-width: ${val}px)`);
+    return window.matchMedia(`screen and (min-width: ${val}px)`);
   },
   atMost(val) {
-    return window.matchMedia(`(max-width: ${val - 1}px)`);
+    return window.matchMedia(`screen and (max-width: ${val - 1}px)`);
   }
 };
 
