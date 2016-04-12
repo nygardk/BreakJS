@@ -137,14 +137,11 @@ var myApp = React.createClass({
     this.setState({layout: layout});
   },
   render: function() {
-    if (this.state.layout === 'mobile') {
-      return (<MobileApp />);
-    } else if (this.state.layout === 'phablet') {
-      return (<PhabletApp />);
-    } else if (this.state.layout === 'tablet') {
-      return (<TabletApp />);
-    } else {
-      return (<DesktopApp />);
+    switch (this.state.layout) {
+      case 'mobile': return (<MobileApp />);
+      case 'phablet': return (<PhabletApp />);
+      case 'tablet': return (<TabletApp />);
+      default: return (<DesktopApp />);
     }
   }
 });
