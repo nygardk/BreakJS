@@ -1,6 +1,3 @@
-import find from 'lodash.find';
-
-
 const mediaQueries = {
   between(val1, val2) {
     return window.matchMedia(`screen and (min-width: ${val1}px) and ` +
@@ -33,7 +30,7 @@ const Breakjs = function(bpEntries) {
   for (let key in bpEntries) {
     let entry = {name: key, value: bpEntries[key]};
 
-    if (find(bps, bp => bp.value === entry.value)) {
+    if (bps.filter(bp => bp.value === entry.value)[0]) {
       throw new Error('Breakpoint values must be unique.');
     }
 
@@ -72,7 +69,7 @@ const Breakjs = function(bpEntries) {
     });
 
   function getBreakpoint(breakpointName) {
-    let findObj = find(breakpoints, bp => bp.name === breakpointName);
+    let findObj = breakpoints.filter(bp => bp.name === breakpointName)[0];
 
     if (!findObj) {
       throw new Error('invalid breakpoint name');
@@ -114,7 +111,7 @@ const Breakjs = function(bpEntries) {
     },
 
     current() {
-      let findObj = find(breakpoints, bp => bp.query.is.matches);
+      let findObj = breakpoints.filter(bp => bp.query.is.matches)[0];
 
       if (findObj) {
         return findObj.name;
@@ -141,7 +138,7 @@ const Breakjs = function(bpEntries) {
 
     removeChangeListener(listener) {
       breakpoints.forEach(bp => {
-        let findObj = find(changeListeners, cl => cl.original === listener);
+        let findObj = changeListeners.filter(cl => cl.original === listener)[0];
 
         if (findObj) {
           bp.query.is.removeListener(findObj.created);
