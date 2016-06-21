@@ -3,13 +3,6 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _lodashFind = require('lodash.find');
-
-var _lodashFind2 = _interopRequireDefault(_lodashFind);
-
 var mediaQueries = {
   between: function between(val1, val2) {
     return window.matchMedia('screen and (min-width: ' + val1 + 'px) and ' + ('(max-width: ' + (val2 - 1) + 'px)'));
@@ -40,9 +33,9 @@ var Breakjs = function Breakjs(bpEntries) {
   var _loop = function (key) {
     var entry = { name: key, value: bpEntries[key] };
 
-    if ((0, _lodashFind2['default'])(bps, function (bp) {
+    if (bps.filter(function (bp) {
       return bp.value === entry.value;
-    })) {
+    })[0]) {
       throw new Error('Breakpoint values must be unique.');
     }
 
@@ -85,9 +78,9 @@ var Breakjs = function Breakjs(bpEntries) {
   });
 
   function getBreakpoint(breakpointName) {
-    var findObj = (0, _lodashFind2['default'])(breakpoints, function (bp) {
+    var findObj = breakpoints.filter(function (bp) {
       return bp.name === breakpointName;
-    });
+    })[0];
 
     if (!findObj) {
       throw new Error('invalid breakpoint name');
@@ -129,9 +122,9 @@ var Breakjs = function Breakjs(bpEntries) {
     },
 
     current: function current() {
-      var findObj = (0, _lodashFind2['default'])(breakpoints, function (bp) {
+      var findObj = breakpoints.filter(function (bp) {
         return bp.query.is.matches;
-      });
+      })[0];
 
       if (findObj) {
         return findObj.name;
@@ -160,9 +153,9 @@ var Breakjs = function Breakjs(bpEntries) {
 
     removeChangeListener: function removeChangeListener(listener) {
       breakpoints.forEach(function (bp) {
-        var findObj = (0, _lodashFind2['default'])(changeListeners, function (cl) {
+        var findObj = changeListeners.filter(function (cl) {
           return cl.original === listener;
-        });
+        })[0];
 
         if (findObj) {
           bp.query.is.removeListener(findObj.created);
