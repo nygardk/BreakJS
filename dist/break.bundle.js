@@ -4,6 +4,14 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+function find(array, cb) {
+  for (var i = array.length - 1; i >= 0; i--) {
+    if (cb(array[i])) {
+      return array[i];
+    }
+  }
+}
+
 var mediaQueries = {
   between: function between(val1, val2) {
     return window.matchMedia('screen and (min-width: ' + val1 + 'px) and ' + ('(max-width: ' + (val2 - 1) + 'px)'));
@@ -34,9 +42,9 @@ var Breakjs = function Breakjs(bpEntries) {
   var _loop = function (key) {
     var entry = { name: key, value: bpEntries[key] };
 
-    if (bps.filter(function (bp) {
+    if (find(bps, function (bp) {
       return bp.value === entry.value;
-    })[0]) {
+    })) {
       throw new Error('Breakpoint values must be unique.');
     }
 
@@ -54,7 +62,7 @@ var Breakjs = function Breakjs(bpEntries) {
       throw new Error('Invalid breakpoint name -- should be a string.');
     }
 
-    if (typeof bp.value !== 'number' || bp.value < 0 || bp.value >= 9999) {
+    if (typeof bp.value !== 'number' || bp.value < 0) {
       throw new Error('Invalid breakpoint value for ' + bp.name + ': ' + bp.value);
     }
 
@@ -79,9 +87,9 @@ var Breakjs = function Breakjs(bpEntries) {
   });
 
   function getBreakpoint(breakpointName) {
-    var findObj = breakpoints.filter(function (bp) {
+    var findObj = find(breakpoints, function (bp) {
       return bp.name === breakpointName;
-    })[0];
+    });
 
     if (!findObj) {
       throw new Error('invalid breakpoint name');
@@ -123,9 +131,9 @@ var Breakjs = function Breakjs(bpEntries) {
     },
 
     current: function current() {
-      var findObj = breakpoints.filter(function (bp) {
+      var findObj = find(breakpoints, function (bp) {
         return bp.query.is.matches;
-      })[0];
+      });
 
       if (findObj) {
         return findObj.name;
@@ -154,9 +162,9 @@ var Breakjs = function Breakjs(bpEntries) {
 
     removeChangeListener: function removeChangeListener(listener) {
       breakpoints.forEach(function (bp) {
-        var findObj = changeListeners.filter(function (cl) {
+        var findObj = find(changeListeners, function (cl) {
           return cl.original === listener;
-        })[0];
+        });
 
         if (findObj) {
           bp.query.is.removeListener(findObj.created);
