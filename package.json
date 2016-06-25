@@ -24,7 +24,11 @@
     "query",
     "React"
   ],
-  "author": "Klaus Nygård",
+  "author": {
+    "name": "Klaus Nygård",
+    "email": "klaus.nygard@gmail.com",
+    "url": "http://klausnygard.fi"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
