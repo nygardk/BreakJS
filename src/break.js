@@ -1,3 +1,11 @@
+function find(array, cb) {
+  for (let i = array.length - 1; i >= 0; i--) {
+    if (cb(array[i])) {
+      return array[i];
+    }
+  }
+}
+
 const mediaQueries = {
   between(val1, val2) {
     return window.matchMedia(`screen and (min-width: ${val1}px) and ` +
@@ -30,7 +38,7 @@ const Breakjs = function(bpEntries) {
   for (let key in bpEntries) {
     let entry = {name: key, value: bpEntries[key]};
 
-    if (bps.filter(bp => bp.value === entry.value)[0]) {
+    if (find(bps, bp => bp.value === entry.value)) {
       throw new Error('Breakpoint values must be unique.');
     }
 
@@ -69,7 +77,7 @@ const Breakjs = function(bpEntries) {
     });
 
   function getBreakpoint(breakpointName) {
-    let findObj = breakpoints.filter(bp => bp.name === breakpointName)[0];
+    let findObj = find(breakpoints, bp => bp.name === breakpointName);
 
     if (!findObj) {
       throw new Error('invalid breakpoint name');
@@ -111,7 +119,7 @@ const Breakjs = function(bpEntries) {
     },
 
     current() {
-      let findObj = breakpoints.filter(bp => bp.query.is.matches)[0];
+      let findObj = find(breakpoints, bp => bp.query.is.matches);
 
       if (findObj) {
         return findObj.name;
@@ -138,7 +146,7 @@ const Breakjs = function(bpEntries) {
 
     removeChangeListener(listener) {
       breakpoints.forEach(bp => {
-        let findObj = changeListeners.filter(cl => cl.original === listener)[0];
+        let findObj = find(changeListeners, cl => cl.original === listener);
 
         if (findObj) {
           bp.query.is.removeListener(findObj.created);
