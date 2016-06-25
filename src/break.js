@@ -52,7 +52,7 @@ const Breakjs = function(bpEntries) {
         throw new Error('Invalid breakpoint name -- should be a string.');
       }
 
-      if (typeof bp.value !== 'number' || bp.value < 0 || bp.value >= 9999) {
+      if (typeof bp.value !== 'number' || bp.value < 0) {
         throw new Error(`Invalid breakpoint value for ${bp.name}: ${bp.value}`);
       }
 
