@@ -34,9 +34,9 @@ const Breakjs = function(bpEntries) {
     throw new Error('No breakpoints were defined!');
   }
 
-  let bps = [];
-  for (let key in bpEntries) {
-    let entry = {name: key, value: bpEntries[key]};
+  const bps = [];
+  for (const key in bpEntries) {
+    const entry = {name: key, value: bpEntries[key]};
 
     if (find(bps, bp => bp.value === entry.value)) {
       throw new Error('Breakpoint values must be unique.');
@@ -45,7 +45,7 @@ const Breakjs = function(bpEntries) {
     bps.push(entry);
   }
 
-  let breakpoints = bps
+  const breakpoints = bps
     .sort((a, b) => { return a.value > b.value; })
     .map((bp, index) => {
       if (typeof bp.name !== 'string') {
@@ -56,7 +56,7 @@ const Breakjs = function(bpEntries) {
         throw new Error(`Invalid breakpoint value for ${bp.name}: ${bp.value}`);
       }
 
-      let breakpoint = {name: bp.name};
+      const breakpoint = {name: bp.name};
 
       // only query
       if (bps.length === 1) {
@@ -77,7 +77,7 @@ const Breakjs = function(bpEntries) {
     });
 
   function getBreakpoint(breakpointName) {
-    let findObj = find(breakpoints, bp => bp.name === breakpointName);
+    const findObj = find(breakpoints, bp => bp.name === breakpointName);
 
     if (!findObj) {
       throw new Error('invalid breakpoint name');
@@ -86,7 +86,7 @@ const Breakjs = function(bpEntries) {
     return findObj;
   }
 
-  let changeListeners = [];
+  const changeListeners = [];
 
   return {
     breakpoints: bps,
@@ -119,7 +119,7 @@ const Breakjs = function(bpEntries) {
     },
 
     current() {
-      let findObj = find(breakpoints, bp => bp.query.is.matches);
+      const findObj = find(breakpoints, bp => bp.query.is.matches);
 
       if (findObj) {
         return findObj.name;
@@ -128,7 +128,7 @@ const Breakjs = function(bpEntries) {
 
     addChangeListener(listener) {
       breakpoints.forEach(bp => {
-        let changeListener = () => {
+        const changeListener = () => {
           var current = this.current();
           if (current === bp.name) {
             listener(current);
@@ -146,7 +146,7 @@ const Breakjs = function(bpEntries) {
 
     removeChangeListener(listener) {
       breakpoints.forEach(bp => {
-        let findObj = find(changeListeners, cl => cl.original === listener);
+        const findObj = find(changeListeners, cl => cl.original === listener);
 
         if (findObj) {
           bp.query.is.removeListener(findObj.created);
