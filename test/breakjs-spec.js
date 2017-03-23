@@ -34,6 +34,14 @@ describe('BreakJS', () => {
       it('atMost("tablet") should return true', () => {
         expect(layout.atMost('tablet')).toBeTruthy();
       });
+
+      it('lessThan("mobile") should return false', () => {
+        expect(layout.lessThan('mobile')).toBeFalsy();
+      });
+
+      it('lessThan("phablet") should return true', () => {
+        expect(layout.lessThan('phablet')).toBeTruthy();
+      });
     });
   }
 
@@ -53,6 +61,26 @@ describe('BreakJS', () => {
 
       it('atMost("mobile") should return false', () => {
         expect(layout.atMost('mobile')).toBeFalsy();
+      });
+
+      it('atMost("phablet") should return true', () => {
+        expect(layout.atMost('phablet')).toBeTruthy();
+      });
+
+      it('atMost("tablet") should return true', () => {
+        expect(layout.atMost('tablet')).toBeTruthy();
+      });
+
+      it('atMost("desktop") should return true', () => {
+        expect(layout.atMost('desktop')).toBeTruthy();
+      });
+
+      it('lessThan("phablet") should return false', () => {
+        expect(layout.lessThan('phablet')).toBeFalsy();
+      });
+
+      it('lessThan("tablet") should return true', () => {
+        expect(layout.lessThan('tablet')).toBeTruthy();
       });
     });
   }
@@ -77,6 +105,14 @@ describe('BreakJS', () => {
 
       it('atMost("tablet") should return true', () => {
         expect(layout.atMost('tablet')).toBeTruthy();
+      });
+
+      it('lessThan("tablet") should return false', () => {
+        expect(layout.lessThan('tablet')).toBeFalsy();
+      });
+
+      it('lessThan("desktop") should return true', () => {
+        expect(layout.lessThan('desktop')).toBeTruthy();
       });
     });
   }

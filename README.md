@@ -50,9 +50,23 @@ __3. Use the BreakJS methods to examine the layout and add event listeners:__
 // window width: 600px
 layout.is('mobile'); // false
 layout.is('phablet'); // true
+layout.is('tablet'); // false
+layout.is('desktop'); // false
+
 layout.atLeast('mobile'); // true
-layout.atMost('phablet'); // true
+layout.atLeast('phablet'); // true
 layout.atLeast('tablet'); // false
+layout.atLeast('desktop'); // false
+
+layout.atMost('mobile'); // false
+layout.atMost('phablet'); // true
+layout.atMost('tablet'); // true
+layout.atMost('desktop'); // true
+
+layout.lessThan('mobile'); // false
+layout.lessThan('phablet'); // false
+layout.lessThan('tablet'); // true
+layout.lessThan('desktop'); // true
 
 layout.addChangeListener(function(layout) {
   console.log(layout); // prints current breakpoint name when layout is changed
@@ -101,6 +115,11 @@ breakpoint.
 #### `atMost(<String> breakpoint)`
 
 Check if the current layout matches the given breakpoint or any narrower
+breakpoint.
+
+#### `lessThan(<String> breakpoint)`
+
+Check if the current layout is less than the given breakpoint or any narrower
 breakpoint.
 
 #### `addChangeListener(<Function> callback)`
