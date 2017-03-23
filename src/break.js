@@ -24,6 +24,7 @@ const query = function(bp, nextBp) {
     is: typeof nextBp === 'number'
           ? mediaQueries.between(bp, nextBp)
           : mediaQueries.atLeast(bp),
+    lessThan: mediaQueries.atMost(bp),
     atLeast: mediaQueries.atLeast(bp),
     atMost: mediaQueries.atMost(nextBp || Number.MAX_VALUE)
   };
@@ -101,7 +102,7 @@ const Breakjs = function(bpEntries) {
     },
 
     /**
-     * Check if the current window size at least the given size
+     * Check if the current window size is at least the given size
      * @param  {String} size
      * @return {Boolean}
      */
@@ -116,6 +117,15 @@ const Breakjs = function(bpEntries) {
      */
     atMost(name) {
       return getBreakpoint(name).query.atMost.matches;
+    },
+
+    /**
+     * Check if the current window size is less than the given size
+     * @param  {String} size
+     * @return {Boolean}
+     */
+    lessThan(name) {
+      return getBreakpoint(name).query.lessThan.matches;
     },
 
     current() {
