@@ -8,8 +8,9 @@ function find(array, cb) {
 
 const mediaQueries = {
   between(val1, val2) {
-    return window.matchMedia(`screen and (min-width: ${val1}px) and ` +
-                             `(max-width: ${val2 - 1}px)`);
+    return window.matchMedia(
+      `screen and (min-width: ${val1}px) and (max-width: ${val2 - 1}px)`
+    );
   },
   atLeast(val) {
     return window.matchMedia(`screen and (min-width: ${val}px)`);
@@ -21,9 +22,10 @@ const mediaQueries = {
 
 const query = function(bp, nextBp) {
   return {
-    is: typeof nextBp === 'number'
-          ? mediaQueries.between(bp, nextBp)
-          : mediaQueries.atLeast(bp),
+    is:
+      typeof nextBp === 'number'
+        ? mediaQueries.between(bp, nextBp)
+        : mediaQueries.atLeast(bp),
     atLeast: mediaQueries.atLeast(bp),
     atMost: mediaQueries.atMost(nextBp || Number.MAX_VALUE)
   };
@@ -36,7 +38,7 @@ const Breakjs = function(bpEntries) {
 
   const bps = [];
   for (const key in bpEntries) {
-    const entry = {name: key, value: bpEntries[key]};
+    const entry = { name: key, value: bpEntries[key] };
 
     if (find(bps, bp => bp.value === entry.value)) {
       throw new Error('Breakpoint values must be unique.');
@@ -46,7 +48,7 @@ const Breakjs = function(bpEntries) {
   }
 
   const breakpoints = bps
-    .sort((a, b) => { return a.value > b.value; })
+    .sort((a, b) => a.value > b.value)
     .map((bp, index) => {
       if (typeof bp.name !== 'string') {
         throw new Error('Invalid breakpoint name -- should be a string.');
@@ -56,20 +58,16 @@ const Breakjs = function(bpEntries) {
         throw new Error(`Invalid breakpoint value for ${bp.name}: ${bp.value}`);
       }
 
-      const breakpoint = {name: bp.name};
+      const breakpoint = { name: bp.name };
 
       // only query
       if (bps.length === 1) {
         breakpoint.query = query(0, null);
-      }
-
-      // last query
-      else if (index === bps.length - 1) {
+      } else if (index === bps.length - 1) {
+        // last query
         breakpoint.query = query(bp.value, null);
-      }
-
-      // query inbetween
-      else {
+      } else {
+        // query inbetween
         breakpoint.query = query(bp.value, bps[index + 1].value);
       }
 
